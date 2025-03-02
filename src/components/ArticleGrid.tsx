@@ -9,11 +9,13 @@ interface ArticleGridProps {
 const ArticleGrid: React.FC<ArticleGridProps> = ({ title }) => {
   const { data: articles, isLoading, error } = useArticles();
 
-  if (!articles) return (
-    <div className="py-12 text-center">
-      <p>Chargement des articles...</p>
-    </div>
-  );
+  if (isLoading || !articles) {
+    return (
+      <div className="py-12 text-center">
+        <p>Chargement des articles...</p>
+      </div>
+    );
+  }
 
   if (isLoading) return (
     <div className="py-12 text-center">

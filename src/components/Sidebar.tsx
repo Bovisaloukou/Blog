@@ -9,12 +9,12 @@ interface SidebarProps {
   categories: Category[];
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ categories }) => {
+const Sidebar: React.FC<SidebarProps> = ({ categories = [] }) => {
   const { data: recentArticles, isLoading } = useRecentArticles(5);
 
-  if (!categories || !recentArticles) {
-    return <div>Chargement...</div>;
-  }
+  // S'assurer que les données sont des tableaux
+  const categoriesArray = Array.isArray(categories) ? categories : [];
+  const articlesArray = Array.isArray(recentArticles) ? recentArticles : [];
 
   return (
     <aside>
@@ -25,7 +25,7 @@ const Sidebar: React.FC<SidebarProps> = ({ categories }) => {
           {isLoading ? (
             <div>Chargement...</div>
           ) : (
-            recentArticles?.map(article => (
+            articlesArray.map(article => (
               <div key={article._id} className="bg-white p-4 rounded-lg shadow">
                 {article.imageUrl && (
                   <img 
@@ -56,7 +56,7 @@ const Sidebar: React.FC<SidebarProps> = ({ categories }) => {
         <h2 className="text-xl font-bold mb-4">Catégories</h2>
         <div className="bg-white p-4 rounded-lg shadow">
           <ul className="space-y-2">
-            {categories.map(category => (
+            {categoriesArray.map(category => (
               <li key={category._id}>
                 <Link 
                   to={`/categories/${category.slug}`}
