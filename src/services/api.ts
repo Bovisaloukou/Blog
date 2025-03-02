@@ -4,7 +4,7 @@ import { Article, CommentData, Category, CreateArticleData, Comment } from '../t
 // Créer et exporter l'instance axios
 export const api = axios.create({
   baseURL: import.meta.env.PROD 
-    ? 'https://project-lime-zeta.vercel.app/api'
+    ? process.env.CLIENT_URL || 'http://localhost:3000/api'
     : 'http://localhost:3000/api',
   withCredentials: true
 });
