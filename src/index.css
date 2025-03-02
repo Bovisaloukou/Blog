@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background font-opensans text-textPrimary;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-playfair font-bold;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+  .btn-primary {
+    @apply bg-primary text-white font-montserrat font-medium py-3 px-6 rounded-lg hover:bg-opacity-90 transition-all;
+  }
+  .nav-link {
+    @apply font-montserrat text-base text-secondary hover:text-primary transition-colors;
+  }
+  .article-card {
+    @apply bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300;
+  }
+  .form-input {
+    @apply w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+}
