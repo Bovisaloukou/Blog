@@ -12,6 +12,10 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ categories }) => {
   const { data: recentArticles, isLoading } = useRecentArticles(5);
 
+  if (!categories || !recentArticles) {
+    return <div>Chargement...</div>;
+  }
+
   return (
     <aside>
       {/* Articles récents */}

@@ -18,10 +18,17 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
   origin: [
-    process.env.CLIENT_URL || 'http://localhost:5173',
+    process.env.CLIENT_URL || 'https://blog-chi-three-61.vercel.app',
+    'http://localhost:5173'
   ],
   credentials: true
 }));
+
+// Ajouter un log pour déboguer
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
 
 // Routes publiques
 app.use('/api/auth', authRoutes);
