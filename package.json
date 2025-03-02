@@ -8,8 +8,8 @@
     "server": "tsx watch src/server/index.ts",
     "seed": "tsx src/server/scripts/seedCategories.ts",
     "create-admin": "tsx src/server/scripts/createAdmin.ts",
-    "build": "vite build",
-    "vercel-build": "tsc --noEmit && vite build",
+    "build": "tsc && vite build",
+    "vercel-build": "npm run build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
