@@ -25,7 +25,7 @@ app.use(cors({
 }));
 
 // Ajouter un log pour déboguer
-app.use((req, res, next) => {
+app.use((req, _res, next) => {
   console.log(`Requête reçue: ${req.method} ${req.path}`);
   next();
 });
