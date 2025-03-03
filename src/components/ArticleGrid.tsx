@@ -43,12 +43,14 @@ const ArticleGrid: React.FC<ArticleGridProps> = ({ title }) => {
           <h2 className="font-playfair text-3xl mb-8 text-center">{title}</h2>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {articles.map(article => (
-            <ArticleCard 
-              key={article._id}
-              article={article} 
-            />
-          ))}
+          {Array.isArray(articles) ? (
+            articles.map(article => (
+              <ArticleCard 
+                key={article._id}
+                article={article} 
+              />
+            ))
+          ) : null}
         </div>
       </div>
     </section>
