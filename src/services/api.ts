@@ -4,7 +4,7 @@ import { Article, CommentData, Category, CreateArticleData, Comment } from '../t
 // Créer et exporter l'instance axios
 export const api = axios.create({
   baseURL: import.meta.env.PROD 
-    ? 'https://blog-chi-three-61.vercel.app/api'
+    ? 'backend-blog-production-78d2.up.railway.app/api'
     : 'http://localhost:3000/api',
   withCredentials: true
 });
