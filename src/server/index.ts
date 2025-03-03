@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -24,7 +24,7 @@ app.use(cors({
   credentials: true
 }));
 
-// Ajouter un log pour déboguer
+// Log des requêtes
 app.use((req, _res, next) => {
   console.log(`Requête reçue: ${req.method} ${req.path}`);
   next();
@@ -41,11 +41,18 @@ app.use('/api/admin/articles', requireAuth, requireAdmin, articleRoutes);
 app.use('/api/admin/categories', requireAuth, requireAdmin, categoryRoutes);
 app.use('/api/admin/comments', requireAuth, requireAdmin, commentRoutes);
 
-// Connexion à MongoDB avec des options supplémentaires
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/blog', {
-  serverSelectionTimeoutMS: 5000,  // Timeout après 5 secondes au lieu de 30s par défaut
-  socketTimeoutMS: 45000,          // Timeout socket après 45 secondes
-  connectTimeoutMS: 10000,         // Timeout connexion après 10 secondes
+// Gestion des erreurs (doit être après toutes les routes)
+app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  console.error('Erreur:', err.stack);
+  res.status(500).json({ message: 'Une erreur est survenue' });
+});
+
+// Connexion à MongoDB
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/blog';
+mongoose.connect(mongoUri, {
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
+  connectTimeoutMS: 10000,
 })
 .then(() => {
   console.log('Connecté à MongoDB');
@@ -56,5 +63,8 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/blog', {
 })
 .catch(err => {
   console.error('Erreur de connexion à MongoDB:', err);
-  process.exit(1);  // Arrêter le serveur si la connexion échoue
-}); 
+  process.exit(1);
+});
+
+// Export pour Vercel
+export default app;
