@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "name": "blog-app",
+  "framework": "vite",
   "builds": [
     {
       "src": "src/server/index.ts",
@@ -7,17 +9,25 @@
     },
     {
       "src": "package.json",
-      "use": "@vercel/static-build"
+      "use": "@vercel/static-build",
+      "config": {
+        "framework": "vite",
+        "distDir": "dist"
+      }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "dest": "src/server/index.ts",
+      "handle": "filesystem"
     },
     {
       "src": "/assets/(.*)",
       "dest": "/assets/$1"
+    },
+    {
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",

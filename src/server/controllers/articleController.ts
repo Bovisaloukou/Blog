@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Article from '../models/Article';
 
-export const getArticles = async (req: Request, res: Response) => {
+export const getArticles = async (_req: Request, res: Response) => {
   try {
     console.log('Fetching articles...');
     const articles = await Article.find()
