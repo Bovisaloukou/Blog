@@ -19,8 +19,7 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "src/server/index.ts",
-      "handle": "filesystem"
+      "dest": "src/server/index.ts"
     },
     {
       "src": "/assets/(.*)",
