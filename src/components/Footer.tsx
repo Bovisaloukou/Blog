@@ -5,8 +5,11 @@ import { useCategories } from '../hooks/useCategories';
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
-  const { data: categories } = useCategories();
-  
+  const { data } = useCategories();
+  const categories = Array.isArray(data) ? data : [];
+
+  console.log("Valeur de categories :", categories);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert(`Merci de vous être inscrit avec l'email: ${email}`);
@@ -32,7 +35,7 @@ const Footer: React.FC = () => {
           <div className="md:col-span-1">
             <h3 className="text-sm font-semibold mb-4 text-gray-400">Catégories</h3>
             <ul className="space-y-3">
-              {categories?.map(category => (
+              {categories.map(category => (
                 <li key={category._id}>
                   <Link 
                     to={`/categories/${category.slug}`} 
