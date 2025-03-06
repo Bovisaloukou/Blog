@@ -4,10 +4,6 @@
   "framework": "vite",
   "builds": [
     {
-      "src": "src/server/index.ts",
-      "use": "@vercel/node"
-    },
-    {
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
@@ -19,7 +15,7 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "src/server/index.ts"
+      "dest": "backend-blog-production-78d2.up.railway.app/api/$1"
     },
     {
       "src": "/assets/(.*)",
